@@ -2,7 +2,7 @@
 from urllib2 import urlopen
 from BeautifulSoup import BeautifulSoup
 
-class Apod:
+class Apod(object):
     def apod_wallpaper(self):
         self.soup = BeautifulSoup(urlopen('http://apod.nasa.gov/').read())
         self.pic = self.soup.find('img')
@@ -16,7 +16,7 @@ class Apod:
 
 Apod().apod_wallpaper()
  
-
+## work in a way for 'png' and probably 'jpeg' ##
 
 
 
