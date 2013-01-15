@@ -1,22 +1,24 @@
 #!/usr/bin/env python
-from urllib2 import urlopen
+
+import requests
 from BeautifulSoup import BeautifulSoup
 
 class Apod(object):
-    def apod_wallpaper(self):
-        self.soup = BeautifulSoup(urlopen('http://apod.nasa.gov/').read())
-        self.pic = self.soup.find('img')
-        spot = str(self.pic).find('jpg')
-        back = spot + str(self.pic)[spot:].find('"')
+    def __init__(self):
+        page = requests.get('http://apod.nasa.gov')
+        soup = BeautifulSoup(page.text)
+        link = soup.findAll('a')[1]
+        link = str(link)
+        link = link[link.find('"') + 1:]
+        link = link[:link.find('"')]
+        image_link = 'http://apod.nasa.gov/' + link
         with open('/home/oberon/Pictures/daily', 'wb') as pic_folder:
-            pic_folder.write(urlopen('http://apod.nasa.gov/' + str(self.pic)[10:back]).read())
+            image = requests.get(image_link)
+            pic_folder.write(image.content)    
         pic_folder.close()
-        return 
+        return
 
-
-Apod().apod_wallpaper()
- 
-## work in a way for 'png' and probably 'jpeg' ##
-
-
+if __name__ == '__main__':
+    apd = Apod
+    apd()
 
