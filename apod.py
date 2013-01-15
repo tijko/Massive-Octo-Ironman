@@ -4,6 +4,7 @@ import requests
 from BeautifulSoup import BeautifulSoup
 
 class Apod(object):
+
     def __init__(self):
         page = requests.get('http://apod.nasa.gov')
         soup = BeautifulSoup(page.text)
