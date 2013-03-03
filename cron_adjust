@@ -1,3 +1,5 @@
-* 12 * * *    /home/oberon/Apod/apod.py
-* 12 * * *    /home/oberon/Apod/changer_1.sh
+HOME="$(getent passwd $USER | awk -F ':' '{print $6}')"
+
+* 12 * * *    ${HOME}/Apod/apod.py
+* 12 * * *    ${HOME}/Apod/changer_1.sh
 
