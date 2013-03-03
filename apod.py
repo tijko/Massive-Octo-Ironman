@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 
 import requests
+from os import environ
 from BeautifulSoup import BeautifulSoup
 
 class Apod(object):
@@ -13,7 +14,7 @@ class Apod(object):
         link = link[link.find('"') + 1:]
         link = link[:link.find('"')]
         image_link = 'http://apod.nasa.gov/' + link
-        with open('/home/oberon/Pictures/daily', 'wb') as pic_folder:
+        with open(environ['HOME'] + '/Pictures/daily', 'wb') as pic_folder:
             image = requests.get(image_link)
             pic_folder.write(image.content)    
         pic_folder.close()
