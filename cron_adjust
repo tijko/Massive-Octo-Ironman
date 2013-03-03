@@ -1,5 +1,0 @@
-HOME="$(getent passwd $USER | awk -F ':' '{print $6}')"
-
-* 12 * * *    ${HOME}/Apod/apod.py
-* 12 * * *    ${HOME}/Apod/changer_1.sh
-
