@@ -1,26 +1,25 @@
 #!/usr/bin/env python
+# -*- coding: utf-8 -*-
 
 import requests
 from os import environ
 from BeautifulSoup import BeautifulSoup
 
+
 class Apod(object):
 
     def __init__(self):
-        page = requests.get('http://apod.nasa.gov')
+        apod = 'http://apod.nasa.gov/'
+        page = requests.get(apod)
         soup = BeautifulSoup(page.text)
-        link = soup.findAll('a')[1]
-        link = str(link)
-        link = link[link.find('"') + 1:]
-        link = link[:link.find('"')]
-        image_link = 'http://apod.nasa.gov/' + link
-        with open(environ['HOME'] + '/Pictures/daily', 'wb') as pic_folder:
-            image = requests.get(image_link)
-            pic_folder.write(image.content)    
-        pic_folder.close()
-        return
+        try:
+            link = soup.findAll('img')[0]['src']
+            image_link = apod + link
+            with open(environ['HOME'] + '/pictures/apod', 'wb') as pic_folder:
+                image = requests.get(image_link)
+                pic_folder.write(image.content)    
+        except IndexError:
+            pass
 
 if __name__ == '__main__':
-    apd = Apod
-    apd()
-
+    Apod()
