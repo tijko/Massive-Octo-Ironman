@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-# -*- coding: utf-8 -*-
+#-*- coding: utf-8 -*-
 
 import os
 from random import choice
@@ -8,11 +8,9 @@ from subprocess import Popen
 
 def back_drop_change():
     link = "/usr/share/slim/themes/default/background.jpg"
+    images = os.environ["HOME"] + "/pictures/apod/"
     os.remove(link)
-    image_selection = list()
-    for di, _, fi in os.walk("/home/triton/pictures/apod"):
-        for f in fi:
-            image_selection.append(di + "/" + f)
+    image_selection = [images + f for _, _, fi in os.walk(images) for f in fi]
     bck_img = choice(image_selection)
     Popen(["ln", "-s", bck_img, link])
 
